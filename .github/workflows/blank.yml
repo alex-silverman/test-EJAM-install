@@ -25,7 +25,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         r-version: [4.4]
-        install-method: ["devtools::install_github"]
+        install-method: ["remotes::install_github"]
 
     steps:
       - name: Set up R
@@ -33,24 +33,14 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
           
-      - name: Install devtools and remotes (if needed)
+      - name: Install remotes
         run: |
-          if [ "${{ matrix.install-method }}" == "devtools::install_github" ]; then
-            R -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")'
-          elif [ "${{ matrix.install-method }}" == "remotes::install_url" ]; then
-            R -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'
-          fi
+          R -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'
   
       - name: Install Package - ${{ matrix.install-method }}
         run: |
-          if [ "${{ matrix.install-method }}" == "devtools::install_github" ]; then
-            R -e 'devtools::install_github("USEPA/EJAM-open")'
-          elif [ "${{ matrix.install-method }}" == "install.packages" ]; then
-            R -e 'install.packages("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", repos = NULL, type = "source")'
-          elif [ "${{ matrix.install-method }}" == "remotes::install_url" ]; then
-            R -e 'remotes::install_url("https://github.com/USEPA/EJAM-open/archive/main.tar.gz")'
-          fi
-  
+          R -e 'devtools::install_github("USEPA/EJAM-open")'
+          
       - name: Test Installation
         run: |
           R -e 'library(EJAM); print("Package loaded successfully")'
