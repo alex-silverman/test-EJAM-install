@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
         r-version: [4.4]
 
     steps:
@@ -34,11 +34,10 @@ jobs:
 
       - name: Install EJAM
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_PAT: ""
         run: |
           install.packages("remotes")
-          remotes::install_github("mikejohnson51/AOI")
-          remotes::install_url("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", dependencies=TRUE)
+          remotes::install_github("USEPA/EJAM-open", dependencies=TRUE)
         shell: Rscript {0}
 
       - name: Test Installation
