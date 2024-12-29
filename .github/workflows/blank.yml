@@ -40,7 +40,7 @@ jobs:
   
       - name: Install Package - ${{ matrix.install-method }}
         run: |
-          R -e 'remotes::install_url("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", dependencies=TRUE, auth_token=NULL)'
+          R -e 'remotes::install_url("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", dependencies=TRUE)'
           
       - name: Test Installation
         run: |
