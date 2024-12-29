@@ -35,10 +35,11 @@ jobs:
           
       - name: Install EJAM - ${{ matrix.install-method }}
         run: |
-          R -e 'install.packages("remotes")'
-          R -e 'remotes::install_github("mikejohnson51/AOI", auth_token=NULL)'
-          R -e 'remotes::install_url("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", dependencies=TRUE)'
-          
+          install.packages("remotes")
+          remotes::install_github("mikejohnson51/AOI", dependencies=TRUE)
+          remotes::install_url("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", dependencies=TRUE)
+        shell: Rscript {0}
+
       - name: Test Installation
         run: |
           R -e 'library(EJAM); print("Package loaded successfully")'
