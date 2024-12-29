@@ -33,9 +33,9 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
           
-      - name: Install remotes
+      - name: Install devtools
         run: |
-          R -e 'install.packages("devtools")'
+          R -e 'install.packages("devtools", dependencies=TRUE)'
   
       - name: Install Package - ${{ matrix.install-method }}
         run: |
