@@ -39,7 +39,7 @@ jobs:
   
       - name: Install Package - ${{ matrix.install-method }}
         run: |
-          R -e 'remotes::install_github("USEPA/EJAM-open", dependencies=TRUE)'
+          R -e 'remotes::install_github("USEPA/EJAM-open", dependencies=TRUE, auth_token = NULL, force=TRUE)'
           
       - name: Test Installation
         run: |
