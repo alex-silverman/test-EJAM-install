@@ -33,11 +33,10 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
           
-      - name: Install Package - ${{ matrix.install-method }}
+      - name: Install EJAM - ${{ matrix.install-method }}
         run: |
-          R -e 'print(paste0("Repos = ", getOption("repos")))'
-          R -e 'print(paste0("Verbose = ", getOption("verbose")))'
-          R -e 'install.packages("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.zip", dependencies=TRUE, verbose=TRUE)'
+          R -e 'install.packages("remotes")'
+          R -e 'remotes::install_url("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", dependencies=TRUE)'
           
       - name: Test Installation
         run: |
