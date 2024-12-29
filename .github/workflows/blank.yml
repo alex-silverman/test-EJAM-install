@@ -25,7 +25,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest, windows-latest]
         r-version: [4.4]
-        install-method: ["devtools::install_github"]
+        install-method: ["remotes::install_github"]
 
     steps:
       - name: Set up R
@@ -35,11 +35,11 @@ jobs:
           
       - name: Install devtools
         run: |
-          R -e 'install.packages("devtools", dependencies=TRUE)'
+          R -e 'install.packages("remotes")'
   
       - name: Install Package - ${{ matrix.install-method }}
         run: |
-          R -e 'devtools::install_github("USEPA/EJAM-open")'
+          R -e 'remotes::install_github("USEPA/EJAM-open", dependencies=TRUE)'
           
       - name: Test Installation
         run: |
