@@ -35,7 +35,7 @@ jobs:
           
       - name: Install Package - ${{ matrix.install-method }}
         run: |
-          R -e 'install.packages("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz", dependencies=TRUE)'
+          R -e 'install.packages("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.zip", dependencies=TRUE)'
           
       - name: Test Installation
         run: |
