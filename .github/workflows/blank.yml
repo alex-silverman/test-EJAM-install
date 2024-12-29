@@ -40,7 +40,8 @@ jobs:
   
       - name: Install Package - ${{ matrix.install-method }}
         run: |
-          R -e 'remotes::install_github("USEPA/EJAM-open", dependencies=TRUE, auth_token = "")'
+          R -e 'Sys.unsetenv("GITHUB_PAT")'
+          R -e 'remotes::install_github("USEPA/EJAM-open", dependencies=TRUE)'
           
       - name: Test Installation
         run: |
