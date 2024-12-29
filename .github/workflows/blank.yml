@@ -35,8 +35,8 @@ jobs:
           
       - name: Install Package - ${{ matrix.install-method }}
         run: |
-          R -e 'print(paste0("Repos = ", getOption("repos")))
-          R -e 'print(paste0("Verbose = ", getOption("verbose")))
+          R -e 'print(paste0("Repos = ", getOption("repos")))'
+          R -e 'print(paste0("Verbose = ", getOption("verbose")))'
           R -e 'install.packages("https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.zip", dependencies=TRUE, verbose=TRUE)'
           
       - name: Test Installation
