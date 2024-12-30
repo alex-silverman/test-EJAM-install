@@ -32,13 +32,11 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
 
-      - name: System libs
-        run: |
-          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
-            sudo apt-get install -y libfontconfig1-dev libudunits2-dev
-          elif [ "${{ matrix.os }}" == "macOS-latest" ]; then
-            brew install freetype udunits 
-          fi
+      - name: System libs 
+        uses: ConorMacBride/install-package@v1
+        with:
+          brew: freetype udunits
+          apt: libfontconfig1-dev libudunits2-dev
      
       - name: Install EJAM
         env:
