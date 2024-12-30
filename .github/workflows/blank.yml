@@ -38,7 +38,7 @@ jobs:
      
       - name: Install EJAM
         env:
-          GITHUB_PAT: {{ secrets.GITHUB_TOKEN }}
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           install.packages("remotes")
           remotes::install_github("USEPA/EJAM-open", dependencies=TRUE)
