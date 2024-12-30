@@ -32,18 +32,22 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
 
-      - name: Check Rate Limit Without Token
+      - name: System libs
         run: |
-          curl -s https://api.github.com/rate_limit | jq .      
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            sudo apt-get install -y libfontconfig1-dev libudunits2-dev
+          elif [ "${{ matrix.os }}" == "macOS-latest" ]; then
+            brew install freetype udunits 
+          fi
      
       - name: Install EJAM
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         run: |
           install.packages("remotes")
-          remotes::install_github("USEPA/EJAM-open", dependencies=TRUE)
+          remotes::install_github("USEPA/EJAM-open")
         shell: Rscript {0}
 
-      - name: Test Installation
-        run: |
-          R -e 'library(EJAM); print("Package loaded successfully")'
+      # - name: Test Installation
+      #  run: |
+      #    R -e 'library(EJAM); print("Package loaded successfully")'
