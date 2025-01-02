@@ -37,7 +37,7 @@ jobs:
         with:
           brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config libbzip2
           brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config libbzip2
-          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev libbzip2
+          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev libbz2-dev
      
       - name: Install EJAM
         env:
