@@ -32,13 +32,21 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
 
-      - name: System libs 
-        uses: ConorMacBride/install-package@v1
+      - name: Set up R
+        uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config libbzip2
-          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config libbzip2
-          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev libbz2-dev
-     
+          r-version: ${{ matrix.r-version }}
+          
+      - name: System libs 
+        # uses: ConorMacBride/install-package@v1
+        # with:
+        #   brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config libbzip2
+        #   brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config libbzip2
+        #   apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev libbz2-dev
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          r-version: ${{ matrix.r-version }}
+          
       - name: Install EJAM
         env:
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
