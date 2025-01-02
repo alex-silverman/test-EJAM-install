@@ -32,11 +32,6 @@ jobs:
         with:
           r-version: ${{ matrix.r-version }}
 
-      - name: Set up R
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          r-version: ${{ matrix.r-version }}
-          
       - name: System libs 
         uses: ConorMacBride/install-package@v1
         with:
