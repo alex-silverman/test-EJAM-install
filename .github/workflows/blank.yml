@@ -35,9 +35,9 @@ jobs:
       - name: System libs 
         uses: ConorMacBride/install-package@v1
         with:
-          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config
-          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config
-          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev
+          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config bzip2
+          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config bzip2
+          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev bzip2
      
       - name: Install EJAM
         env:
