@@ -47,8 +47,8 @@ jobs:
       - name: System libs 
         uses: ConorMacBride/install-package@v1
         with:
-          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config gzip
-          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config gzip
+          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config gzip zlib
+          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config gzip zlib
           apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev gzip zlib1g-dev
         # uses: r-lib/actions/setup-r-dependencies@v2
         # with:
