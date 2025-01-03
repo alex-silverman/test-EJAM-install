@@ -18,26 +18,18 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  install_remotes_github:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        r-version: [4.4]
+        r-version: [4.3, 4.4]
 
     steps:
       # Checkout the current repository (test-EJAM-install)
       - name: Checkout test-EJAM-install repository
         uses: actions/checkout@v2
-
-      # Clone the EJAM-open repository
-      - name: Clone EJAM-open repository
-        run: |
-          git clone https://github.com/USEPA/EJAM-open.git
-          cd EJAM-open
-          # Optional: Checkout a specific branch or tag
-          # git checkout <branch-name>
       
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -47,9 +39,9 @@ jobs:
       - name: System libs 
         uses: ConorMacBride/install-package@v1
         with:
-          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config gzip zlib
-          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config gzip zlib
-          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev gzip zlib1g-dev
+          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config # gzip zlib
+          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config # gzip zlib
+          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev # gzip zlib1g-dev
         # uses: r-lib/actions/setup-r-dependencies@v2
         # with:
         #  r-version: ${{ matrix.r-version }}
@@ -62,6 +54,48 @@ jobs:
           remotes::install_github("USEPA/EJAM-open")
         shell: Rscript {0}
 
+      - name: Test Installation
+        run: |
+          R -e 'library(EJAM); print("Package loaded successfully")'
+
+  install_remotes_url:
+    runs-on: ubuntu-latest
+  
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        r-version: [4.3, 4.4]
+  
+    steps:
+      # Checkout the current repository (test-EJAM-install)
+      - name: Checkout test-EJAM-install repository
+        uses: actions/checkout@v2
+      
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.r-version }}
+  
+      - name: System libs 
+        uses: ConorMacBride/install-package@v1
+        with:
+          brew: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config # gzip zlib
+          brew-cask: freetype udunits cairo harfbuzz fribidi libpng libtiff jpeg gdal pkg-config # gzip zlib
+          apt: libfontconfig1-dev libudunits2-dev libcairo2-dev libcurl4-openssl-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libgdal-dev libgeos-dev libproj-dev # gzip zlib1g-dev
+        # uses: r-lib/actions/setup-r-dependencies@v2
+        # with:
+        #  r-version: ${{ matrix.r-version }}
+      
+      - name: Install EJAM
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          install.packages("remotes")
+          remotes::install_url(url = "https://github.com/USEPA/EJAM-open/archive/refs/tags/v2.32-EJAM-open.tar.gz",
+                     dependencies = TRUE, upgrade = "never", 
+                     build = FALSE, build_manual = FALSE, build_vignettes = FALSE)
+        shell: Rscript {0}
+  
       - name: Test Installation
         run: |
           R -e 'library(EJAM); print("Package loaded successfully")'
